@@ -56,6 +56,11 @@ namespace SoccerManager.Services
                     away.MD++;
                 }
             }
+            
+            foreach (var row in rows.Values)
+            {
+                row.GD = row.GF - row.GA;
+            }
 
             var ordered = rows.Values
                 .OrderByDescending(r => r.PTS)
