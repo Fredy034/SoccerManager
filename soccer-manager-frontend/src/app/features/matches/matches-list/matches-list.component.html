@@ -1,0 +1,65 @@
+<div class="matches-header">
+  <h2>Partidos</h2>
+  <div>
+    <button (click)="create()">Nuevo Partido</button>
+  </div>
+</div>
+
+<section class="filters">
+  <label>
+    Equipo:
+    <select formControlName="teamId" [formControl]="filterForm.controls['teamId']">
+      <option [ngValue]="null">Todos</option>
+      <option *ngFor="let t of teams" [ngValue]="t.id">{{ t.name }}</option>
+    </select>
+  </label>
+
+  <label>
+    Fecha desde:
+    <input type="date" [formControl]="filterForm.controls['dateFrom']" />
+  </label>
+
+  <label>
+    Fecha hasta:
+    <input type="date" [formControl]="filterForm.controls['dateTo']" />
+  </label>
+
+  <label>
+    Estado:
+    <select formControlName="status" [formControl]="filterForm.controls['status']">
+      <option *ngFor="let s of statuses" [value]="s">{{ s === '' ? 'Todos' : s }}</option>
+    </select>
+  </label>
+
+  <button class="primary-btn" (click)="load()">Aplicar</button>
+  <button class="secondary-btn" (click)="clearFilters()" type="button">Limpiar</button>
+</section>
+
+<table class="matches-table">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Local</th>
+      <th>Visitante</th>
+      <th>Marcador</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let m of matches">
+      <td>{{ m.matchDate | date : 'short' }}</td>
+      <td>{{ teamName(m.homeTeamId) }}</td>
+      <td>{{ teamName(m.awayTeamId) }}</td>
+      <td>{{ m.homeTeamScore ?? '-' }} - {{ m.awayTeamScore ?? '-' }}</td>
+      <td>{{ m.status }}</td>
+      <td class="actions">
+        <button *ngIf="m.status !== 'Jugado'" class="primary-btn" (click)="view(m.id)">Editar</button>
+        <button *ngIf="m.status === 'Jugado'" class="danger-btn" (click)="openDetail(m.id)">Detalle</button>
+        <button *ngIf="m.status === 'Programado'" class="tertiary-btn" (click)="result(m.id)">Resultado</button>
+        <button *ngIf="m.status === 'Programado'" class="warning-btn" (click)="suspendMatch(m.id)">Suspender</button>
+        <button *ngIf="m.status === 'Programado'" class="error-btn" (click)="cancelMatch(m.id)">Cancelar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

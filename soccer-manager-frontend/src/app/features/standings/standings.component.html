@@ -1,0 +1,33 @@
+<h2 class="standings-title">Posiciones</h2>
+<table class="standings-table">
+  <thead>
+    <tr>
+      <th class="team-name">Club</th>
+      <th>PJ</th>
+      <th>PG</th>
+      <th>PE</th>
+      <th>PP</th>
+      <th>GF</th>
+      <th>GC</th>
+      <th>DG</th>
+      <th>PTS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of standings">
+      <td class="team-name">
+        {{ row.position }}
+        <img *ngIf="row.shieldUrl" src="{{ row.shieldUrl }}" alt="{{ row.teamName }} Shield's" class="team-shield">
+        {{ row.teamName }}
+      </td>
+      <td>{{ row.pj ?? row.mp }}</td>
+      <td>{{ row.pg ?? row.mw }}</td>
+      <td>{{ row.pe ?? row.md }}</td>
+      <td>{{ row.pp ?? row.ml }}</td>
+      <td>{{ row.gf ?? row.gf }}</td>
+      <td>{{ row.gc ?? row.ga }}</td>
+      <td>{{ row.dg ?? row.gd }}</td>
+      <td>{{ row.pts ?? row.pts }}</td>
+    </tr>
+  </tbody>
+</table>

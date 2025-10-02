@@ -1,0 +1,59 @@
+<h2 class="form-title">Guardar Resultado</h2>
+
+<div *ngIf="loading">Cargando partido…</div>
+
+<div *ngIf="match && !loading" class="form-container">
+  <p>
+    <strong>{{ match.matchDate | date : 'short' }}</strong> —
+    {{ teamName(match.homeTeamId) }} vs {{ teamName(match.awayTeamId) }}
+  </p>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Marcador Local
+      <input type="number" formControlName="homeScore" min="0" />
+    </label>
+
+    <label>
+      Marcador Visitante
+      <input type="number" formControlName="awayScore" min="0" />
+    </label>
+
+    <h4>Goles</h4>
+    <div formArrayName="goals">
+      <div
+        *ngFor="let g of goals.controls; let i = index"
+        [formGroupName]="i"
+        class="goal-row"
+      >
+        <label>
+          Equipo
+          <select formControlName="teamId">
+            <option *ngFor="let t of teamOptions" [ngValue]="t.id">{{ t.name }}</option>
+          </select>
+        </label>
+
+        <label>
+          Minuto
+          <input formControlName="minute" type="number" min="1" max="120" />
+        </label>
+
+        <label>
+          Goleador
+          <input formControlName="scorer" type="text" />
+        </label>
+
+        <button class="secondary-btn" type="button" (click)="removeGoal(i)">Eliminar</button>
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <button class="tertiary-btn" type="button" (click)="addGoal()">Agregar Gol</button>
+    </div>
+
+    <div class="actions-container" style="margin-top:12px">
+      <button class="primary-btn" type="submit">Guardar Resultado</button>
+      <button class="danger-btn" type="button" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

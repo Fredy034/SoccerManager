@@ -1,0 +1,14 @@
+<div class="teams-header">
+  <h2>Equipos</h2>
+  <button (click)="create()" class="btn">Nuevo Equipo</button>
+</div>
+
+<ul class="teams-list">
+  <li *ngFor="let t of teams" class="team-item">
+    <div class="team-info">
+      <img *ngIf="t.shieldUrl" src="{{ t.shieldUrl }}" alt="{{ t.name }} Shield's" class="team-shield">
+      <span class="team-name">{{ t.name }}</span> — <span class="team-city">{{ t.city || t.country }}</span>
+    </div>
+    <button class="edit-btn" (click)="edit(t.id)">Editar</button>
+  </li>
+</ul>

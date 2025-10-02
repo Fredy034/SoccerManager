@@ -1,0 +1,21 @@
+<h2 class="form-title">{{ isEdit ? "Editar Partido" : "Nuevo Partido" }}</h2>
+
+<form class="team-form" [formGroup]="form" (ngSubmit)="save()">
+  <label>Fecha del Partido</label>
+  <input type="datetime-local" formControlName="matchDate" />
+
+  <label>Equipo Local</label>
+  <select formControlName="homeTeamId">
+    <option *ngFor="let t of teams" [value]="t.id">{{ t.name }}</option>
+    </select>
+
+  <label>Equipo Visitante</label>
+  <select formControlName="awayTeamId">
+    <option *ngFor="let t of teams" [value]="t.id">{{ t.name }}</option>
+  </select>
+</form>
+
+<div class="actions-container">
+  <button class="primary-btn" type="submit" (click)="save()">Guardar</button>
+  <button class="secondary-btn" type="button" (click)="cancel()">Cancelar</button>
+</div>

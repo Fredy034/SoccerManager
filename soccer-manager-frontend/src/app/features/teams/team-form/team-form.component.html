@@ -1,0 +1,20 @@
+<h2 class="form-title">{{ isEdit ? "Editar Equipo" : "Nuevo Equipo" }}</h2>
+
+<form class="team-form" [formGroup]="form" (ngSubmit)="save()">
+  <label>Nombre</label>
+  <input formControlName="name" />
+
+  <label>País</label>
+  <input formControlName="country" />
+
+  <label>Ciudad</label>
+  <input formControlName="city" />
+
+  <label>URL del Escudo</label>
+  <input formControlName="shieldUrl" />
+</form>
+
+<div class="actions-container">
+  <button class="primary-btn" type="submit" (click)="save()">Guardar</button>
+  <button class="secondary-btn" type="button" (click)="cancel()">Cancelar</button>
+</div>

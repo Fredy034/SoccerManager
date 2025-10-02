@@ -1,0 +1,38 @@
+<div *ngIf="loading">Cargando...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="match && !loading">
+  <div class="header">
+    <h2>Detalle del Partido</h2>
+    <button class="primary-btn" (click)="goBack()">Regresar</button>
+  </div>
+
+  <div class="match-summary">
+    <div><strong>Fecha:</strong> {{ format(match.matchDate) }}</div>
+    <div><strong>Local:</strong> {{ teamName(match.homeTeamId) }}</div>
+    <div><strong>Visitante:</strong> {{ teamName(match.awayTeamId) }}</div>
+    <div><strong>Marcador:</strong>
+      <span *ngIf="match.homeTeamScore !== null && match.homeTeamScore !== undefined">
+        {{ match.homeTeamScore }} - {{ match.awayTeamScore }}
+      </span>
+      <span *ngIf="match.homeTeamScore === null || match.homeTeamScore === undefined">Sin resultado</span>
+    </div>
+    <div><strong>Estado:</strong> {{ match.status }}</div>
+  </div>
+
+  <h3>Goles</h3>
+  <table *ngIf="match.goalsDto && match.goalsDto.length; else noGoals" class="goals-table">
+    <thead><tr><th>Minuto</th><th>Equipo</th><th>Goleador</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let g of match.goalsDto">
+        <td>{{ g.minute ?? '-' }}</td>
+        <td>{{ teamName(g.teamId) }}</td>
+        <td>{{ g.scorer ?? '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noGoals>
+    <p class="no-goals">No hay goles registrados para este partido.</p>
+  </ng-template>
+</div>
