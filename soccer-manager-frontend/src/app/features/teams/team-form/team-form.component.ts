@@ -48,6 +48,11 @@ export class TeamFormComponent implements OnInit {
 
   save() {
     const payload = this.form.value;
+    if (!payload.name) {
+      alert('Por favor complete todos los campos obligatorios.');
+      return;
+    }
+
     if (this.isEdit && this.id) {
       this.teams
         .update(this.id, payload)
