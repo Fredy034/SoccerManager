@@ -1,0 +1,1 @@
+public record TeamDto(int Id, string Name, string? Country, string? City, string? ShieldUrl, DateTime CreationDate, bool Active);

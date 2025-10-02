@@ -1,0 +1,1 @@
+public record MatchDto(int Id, DateTime MatchDate, int HomeTeamId, int AwayTeamId, int? HomeTeamScore, int? AwayTeamScore, string Status);

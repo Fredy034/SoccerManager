@@ -1,0 +1,1 @@
+public record CreateTeamDto(string Name, string? Country, string? City, string? ShieldUrl);
